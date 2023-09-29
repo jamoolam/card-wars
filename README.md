@@ -1,2 +1,2 @@
 # card-wars
-Coded a simple rendition of the card game, War 
+Coded a simple game of War, where players take a card from a standard 52-card deck and whoever drew the card with the most value (3 of Diamonds<9 of Hearts) wins that hand and takes the cards. If the event occurs where both players grab a card with the same value, they go to 'war', where players will take three cards from their own piles of winnings and have them go head to head against the opponents three cards. The one with the highest value wins those cards.
