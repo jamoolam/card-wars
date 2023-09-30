@@ -1,6 +1,6 @@
 let deck_id = ''
-let player1Wins = 0
-let player2wins = 0
+let player1Cards = []
+let player2Cards = []
 
 //fetch to grab random deck for play
 fetch('https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1') 
@@ -29,12 +29,34 @@ function drawTwo(){
         let player2Val = convertToNum(data.cards[1].value)
         if(player1Val > player2Val) {
           document.querySelector('#result').innerText = 'Player 1 Wins!'
-          player1Wins++
+          player1Cards.push = player1Val
+          player1Cards.push = player2Val
         } else if(player1Val < player2Val) {
           document.querySelector('#result').innerText = 'Player 2 Wins!'
-          player2wins++
+          player2Cards.push = player2Val
+          player2Cards.push = player1Val
         } else {
           document.querySelector('#result').innerText = 'War Time!'
+          let war = warTime(player1Cards, player2Cards)
+          if (war > 0) {
+            document.querySelector('#war').innerText = 'Player 1 Wins the War!'
+            if (player2Cards.length <= 0) {
+              document.querySelector('#gameWinner').innerText = 'Player 1 Wins the Game!'
+            } else {
+              for (let j = 0; j < player2Cards.length || j < 3; j++) {
+                player1Cards.push = player2Cards[i]
+              }
+            }
+          } else {
+            document.querySelector('#war').innerText = 'Player 2 Wins the War!'
+            if (player1Cards.length <= 0) {
+              document.querySelector('#gameWinner').innerText = 'Player 2 Wins the Game!'
+            } else {
+              for (let j = 0; j < player1Cards.length || j < 3; j++) {
+                player2Cards.push = player1Cards[i]
+              }
+            }
+          }
         }
       })
       .catch(err => {
@@ -55,4 +77,23 @@ function convertToNum(val) {
   } else {
     return Number(val)
   }
+}
+
+//compare first three card values and determine who won
+function warTime(arr1, arr2) {
+  let p1Total = 0
+  let p2Total = 0
+  if(arr1.length < 3) {
+    p1Total = arr1.reduce((acc, curr) => acc + curr, 0);
+    p2Total = arr2.slice(0, 3).reduce((acc, curr) => acc + curr, 0);
+  } else if(arr2.length < 3) {
+    p2Total = arr2.reduce((acc, curr) => acc + curr, 0);
+    p1Total = arr1.slice(0, 3).reduce((acc, curr) => acc + curr, 0);
+  } else {
+    for (let i = 0; i < 3; i++) {
+      p1Total += arr1[i]
+      p2Total += arr2[i]
+    }
+  }
+  return p1Total - p2Total
 }
