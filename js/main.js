@@ -22,40 +22,24 @@ function drawTwo(){
       .then(res => res.json()) // parse response as JSON
       .then(data => {
         console.log(data)
-        document.querySelector('h4').innerText = data.remaining
+        document.querySelector('h3').innerText = data.remaining
         document.querySelector('#player1').src = data.cards[0].image
         document.querySelector('#player2').src = data.cards[1].image
         let player1Val = convertToNum(data.cards[0].value)
         let player2Val = convertToNum(data.cards[1].value)
         if(player1Val > player2Val) {
           document.querySelector('#result').innerText = 'Player 1 Wins!'
-          player1Cards.push = player1Val
-          player1Cards.push = player2Val
+          player1Cards.push(player1Val, player2Val)
         } else if(player1Val < player2Val) {
           document.querySelector('#result').innerText = 'Player 2 Wins!'
-          player2Cards.push = player2Val
-          player2Cards.push = player1Val
+          player2Cards.push(player2Val, player1Val)
         } else {
           document.querySelector('#result').innerText = 'War Time!'
           let war = warTime(player1Cards, player2Cards)
           if (war > 0) {
             document.querySelector('#war').innerText = 'Player 1 Wins the War!'
-            if (player2Cards.length <= 0) {
-              document.querySelector('#gameWinner').innerText = 'Player 1 Wins the Game!'
-            } else {
-              for (let j = 0; j < player2Cards.length || j < 3; j++) {
-                player1Cards.push = player2Cards[i]
-              }
-            }
           } else {
             document.querySelector('#war').innerText = 'Player 2 Wins the War!'
-            if (player1Cards.length <= 0) {
-              document.querySelector('#gameWinner').innerText = 'Player 2 Wins the Game!'
-            } else {
-              for (let j = 0; j < player1Cards.length || j < 3; j++) {
-                player2Cards.push = player1Cards[i]
-              }
-            }
           }
         }
       })
